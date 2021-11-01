@@ -1,0 +1,29 @@
+{
+  "name": "cypress-highlight",
+  "version": "1.0.0",
+  "description": "Highlights all elements on the page with good test selectors by injecting a CSS rule",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "test": "cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahmutov/cypress-highlight.git"
+  },
+  "keywords": [
+    "cypress-plugin"
+  ],
+  "author": "Gleb Bahmutov <gleb.bahmutov@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bahmutov/cypress-highlight/issues"
+  },
+  "homepage": "https://github.com/bahmutov/cypress-highlight#readme",
+  "devDependencies": {
+    "cypress": "^8.7.0",
+    "prettier": "^2.4.1"
+  }
+}
