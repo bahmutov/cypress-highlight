@@ -2,6 +2,8 @@
 [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-8.7.0-brightgreen)
 > Highlights all elements on the page with good test selectors by injecting a CSS rule
 
+![Image with highlighted elements that have data-cy attribute](./images/app.png)
+
 ## Videos
 
 - [Add A Red Border Around Elements That Have data-cy Attribute](https://youtu.be/pHzroBFY5V0)
@@ -13,6 +15,22 @@ $ npm install -D cypress-highlight
 # or using Yarn
 $ yarn add -D cypress-highlight
 ```
+
+## Use
+
+```js
+import { highlight } from 'cypress-highlight'
+
+it('loads an app', () => {
+  cy.visit('/')
+  highlight()
+  // you can capture a screenshot to see the elements
+  // with good test selectors
+  cy.screenshot('highlights', { capture: 'runner' })
+})
+```
+
+See [spec.js](./cypress/integration/spec.js)
 
 ## Small print
 
