@@ -7,6 +7,7 @@
 ## Videos
 
 - [Add A Red Border Around Elements That Have data-cy Attribute](https://youtu.be/pHzroBFY5V0)
+- [Cypress-highlight Plugin Introduction](https://youtu.be/EIbSzT6QSxc)
 
 ## Install
 
