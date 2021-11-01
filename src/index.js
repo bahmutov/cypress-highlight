@@ -13,6 +13,8 @@ function highlight(...selectors) {
   if (Cypress._.isEmpty(selectors)) {
     selectors = ['[data-cy]']
   }
+
+  cy.log(`cypress-highlight: ${selectors.join(', ')}`)
   const stylesheetTitle =
     'highlight-' + Cypress._.kebabCase(selectors.join('-'))
 
