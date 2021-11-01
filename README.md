@@ -32,6 +32,18 @@ it('loads an app', () => {
 
 See [spec.js](./cypress/integration/spec.js)
 
+### Multiple selectors
+
+By default, this module highlight all elements with `data-cy` attribute. You can pass your own list of selectors to highlight. For example, to highlight all elements with data attribute `test-id` and all elements with class name `testable`, use
+
+```js
+highlight('[data-test-id]', '.testable')
+```
+
+## Read
+
+[Cypress best practices for selecting elements](https://on.cypress.io/best-practices#Selecting-Elements)
+
 ## Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2021
