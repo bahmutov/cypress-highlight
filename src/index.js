@@ -1,4 +1,12 @@
 /**
+ * Options to the highlight function
+ * @typedef {Object} HighlightOptions
+ * @property {string|string[]} selectors - list of selectors to highlight
+ * @property [failIfFound] boolean - if true, the test fails if the selector is found
+ * @property [failIfNotFound] boolean - if true, the test fails if the selector is not found
+ */
+
+/**
  * Highlights all elements on the page with good test selectors
  * like "data-cy" by injecting a CSS rule.
  * @example
@@ -6,15 +14,37 @@
  *  cy.visit('/')
  *  highlight()
  *  cy.screenshot('highlighted', { capture: 'runner'} )
- * @param {string[]} selectors (optional) List of selectors to highlight
+ * @example
+ *  highlight({ selectors: ['[data-cy]', '[data-testid]'] })
+ * @param {string[]|HighlightOptions[]} selectors (optional) List of selectors to highlight
  * @example highlight('[data-testid]', '[data-cy]')
  */
 function highlight(...selectors) {
+  let failIfFound = false
+  let failIfNotFound = false
+
+  if (selectors.length === 1 && typeof selectors[0] === 'object') {
+    // using an options object
+    const options = selectors[0]
+    selectors = options.selectors || options.selector
+    if (typeof selectors === 'string') {
+      selectors = [selectors]
+    }
+
+    failIfFound = Boolean(options.failIfFound)
+    failIfNotFound = Boolean(options.failIfNotFound)
+  }
+
+  if (failIfFound && failIfNotFound) {
+    throw new Error('Cannot set both failIfFound and failIfNotFound')
+  }
+
   if (Cypress._.isEmpty(selectors)) {
     selectors = ['[data-cy]']
   }
 
-  cy.log(`cypress-highlight: ${selectors.join(', ')}`)
+  const andSelectors = selectors.join(', ')
+  cy.log(`cypress-highlight: ${andSelectors}`)
   const stylesheetTitle =
     'highlight-' + Cypress._.kebabCase(selectors.join('-'))
 
@@ -39,6 +69,12 @@ function highlight(...selectors) {
     style.appendChild(document.createTextNode(css))
     head.appendChild(style)
   })
+
+  if (failIfFound) {
+    cy.get(andSelectors, { log: false }).should('not.exist')
+  } else if (failIfNotFound) {
+    cy.get(andSelectors, { log: false }).should('exist')
+  }
 }
 
 module.exports = { highlight }

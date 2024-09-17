@@ -1,5 +1,7 @@
 # cypress-highlight
+
 [![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-13.14.2-brightgreen)
+
 > Highlights all elements on the page with good test selectors by injecting a CSS rule
 
 ![Image with highlighted elements that have data-cy attribute](./images/app.png)
@@ -39,6 +41,44 @@ By default, this module highlight all elements with `data-cy` attribute. You can
 
 ```js
 highlight('[data-test-id]', '.testable')
+```
+
+### Options object
+
+You can pass multiple options using an object
+
+```js
+// highlight all elements that have "data-cy" attribute
+highlight({
+  selectors: '[data-cy]',
+})
+// highlight all elements that have "data-cy" attribute
+// plus all elements with class "todo-li"
+highlight({
+  selectors: ['[data-cy]', '.todo-li'],
+})
+```
+
+#### failIfFound
+
+You can highlight and then fail the test if any matching elements are found
+
+```js
+highlight({
+  selectors: '[data-error]',
+  failIfFound: true,
+})
+```
+
+#### failIfNotFound
+
+You can fail the test if no matching elements are found
+
+```js
+highlight({
+  selectors: 'li.todo',
+  failIfNotFound: true,
+})
 ```
 
 ## Read
