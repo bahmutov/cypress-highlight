@@ -18,16 +18,16 @@ on:
 jobs:
   badges:
     name: Badges
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout 🛎
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Update version badges 🏷
         run: npx -p dependency-version-badge update-badge cypress
 
       - name: Commit any changed files 💾
-        uses: stefanzweifel/git-auto-commit-action@v4
+        uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Updated badges
           branch: main
