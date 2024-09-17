@@ -59,6 +59,17 @@ highlight({
 })
 ```
 
+#### failIfFound
+
+You can highlight and then fail the test if any matching elements are found
+
+```js
+highlight({
+  selectors: '[data-error]',
+  failIfFound: true,
+})
+```
+
 ## Read
 
 [Cypress best practices for selecting elements](https://on.cypress.io/best-practices#Selecting-Elements)

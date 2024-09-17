@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+// @ts-check
 
 import { highlight } from '../..'
 
@@ -28,5 +29,6 @@ it('allows passing options', () => {
 it.skip('fails on found element', () => {
   highlight({
     selectors: 'button[data-cy]',
+    failIfFound: true,
   })
 })
