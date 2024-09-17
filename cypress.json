@@ -1,8 +1,0 @@
-{
-  "fixturesFolder": false,
-  "supportFile": false,
-  "pluginsFile": false,
-  "baseUrl": "https://todomvc-vercel-gleb-bahmutov.vercel.app/",
-  "viewportHeight": 300,
-  "viewportWidth": 500
-}
