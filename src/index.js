@@ -1,4 +1,10 @@
 /**
+ * Options to the highlight function
+ * @typedef {Object} HighlightOptions
+ * @property {string|string[]} selectors
+ */
+
+/**
  * Highlights all elements on the page with good test selectors
  * like "data-cy" by injecting a CSS rule.
  * @example
@@ -6,10 +12,21 @@
  *  cy.visit('/')
  *  highlight()
  *  cy.screenshot('highlighted', { capture: 'runner'} )
- * @param {string[]} selectors (optional) List of selectors to highlight
+ * @example
+ *  highlight({ selectors: ['[data-cy]', '[data-testid]'] })
+ * @param {string[]|HighlightOptions} selectors (optional) List of selectors to highlight
  * @example highlight('[data-testid]', '[data-cy]')
  */
 function highlight(...selectors) {
+  if (selectors.length === 1 && typeof selectors[0] === 'object') {
+    // using an options object
+    const options = selectors[0]
+    selectors = options.selectors || options.selector
+    if (typeof selectors === 'string') {
+      selectors = [selectors]
+    }
+  }
+
   if (Cypress._.isEmpty(selectors)) {
     selectors = ['[data-cy]']
   }
