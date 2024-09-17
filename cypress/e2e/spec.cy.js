@@ -32,3 +32,10 @@ it.skip('fails on found element', () => {
     failIfFound: true,
   })
 })
+
+it.skip('fails on not found element', () => {
+  highlight({
+    selectors: 'button[data-cy2]',
+    failIfNotFound: true,
+  })
+})

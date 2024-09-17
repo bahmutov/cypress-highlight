@@ -70,6 +70,17 @@ highlight({
 })
 ```
 
+#### failIfNotFound
+
+You can fail the test if no matching elements are found
+
+```js
+highlight({
+  selectors: 'li.todo',
+  failIfNotFound: true,
+})
+```
+
 ## Read
 
 [Cypress best practices for selecting elements](https://on.cypress.io/best-practices#Selecting-Elements)

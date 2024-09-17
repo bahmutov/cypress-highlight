@@ -3,6 +3,7 @@
  * @typedef {Object} HighlightOptions
  * @property {string|string[]} selectors - list of selectors to highlight
  * @property [failIfFound] boolean - if true, the test fails if the selector is found
+ * @property [failIfNotFound] boolean - if true, the test fails if the selector is not found
  */
 
 /**
@@ -20,6 +21,8 @@
  */
 function highlight(...selectors) {
   let failIfFound = false
+  let failIfNotFound = false
+
   if (selectors.length === 1 && typeof selectors[0] === 'object') {
     // using an options object
     const options = selectors[0]
@@ -29,6 +32,11 @@ function highlight(...selectors) {
     }
 
     failIfFound = Boolean(options.failIfFound)
+    failIfNotFound = Boolean(options.failIfNotFound)
+  }
+
+  if (failIfFound && failIfNotFound) {
+    throw new Error('Cannot set both failIfFound and failIfNotFound')
   }
 
   if (Cypress._.isEmpty(selectors)) {
@@ -64,6 +72,8 @@ function highlight(...selectors) {
 
   if (failIfFound) {
     cy.get(andSelectors, { log: false }).should('not.exist')
+  } else if (failIfNotFound) {
+    cy.get(andSelectors, { log: false }).should('exist')
   }
 }
 
