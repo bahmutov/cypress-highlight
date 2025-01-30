@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "test": "cypress run",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release",
+    "cy:open": "cypress open"
   },
   "repository": {
     "type": "git",

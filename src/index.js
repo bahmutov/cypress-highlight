@@ -7,6 +7,31 @@
  */
 
 /**
+ * @param {string} stylesheetTitle
+ * @param {string} css
+ */
+function addStyles(stylesheetTitle, css) {
+  cy.wrap(null, { log: false }).then(() => {
+    // @ts-ignore
+    const doc = cy.state('document')
+    const head = doc.head
+    const hasStyle = Cypress._.find(head.styleSheets, {
+      title: stylesheetTitle,
+    })
+    if (hasStyle) {
+      return
+    }
+
+    const style = doc.createElement('style')
+    style.title = stylesheetTitle
+    style.type = 'text/css'
+
+    style.appendChild(document.createTextNode(css))
+    head.appendChild(style)
+  })
+}
+
+/**
  * Highlights all elements on the page with good test selectors
  * like "data-cy" by injecting a CSS rule.
  * @example
@@ -47,28 +72,11 @@ function highlight(...selectors) {
   cy.log(`cypress-highlight: ${andSelectors}`)
   const stylesheetTitle =
     'highlight-' + Cypress._.kebabCase(selectors.join('-'))
-
-  cy.wrap(null, { log: false }).then(() => {
-    // @ts-ignore
-    const doc = cy.state('document')
-    const head = doc.head
-    const hasStyle = Cypress._.find(head.styleSheets, {
-      title: stylesheetTitle,
-    })
-    if (hasStyle) {
-      return
-    }
-
-    const style = doc.createElement('style')
-    style.title = stylesheetTitle
-    style.type = 'text/css'
-    const outline = 'outline: 1px solid red !important;\n'
-    const css = selectors
-      .map((selector) => `${selector} { ${outline} }`)
-      .join('\n')
-    style.appendChild(document.createTextNode(css))
-    head.appendChild(style)
-  })
+  const outline = 'outline: 1px solid red !important;\n'
+  const css = selectors
+    .map((selector) => `${selector} { ${outline} }`)
+    .join('\n')
+  addStyles(stylesheetTitle, css)
 
   if (failIfFound) {
     cy.get(andSelectors, { log: false }).should('not.exist')
@@ -77,4 +85,6 @@ function highlight(...selectors) {
   }
 }
 
-module.exports = { highlight }
+function highlightMissingTestIds() {}
+
+module.exports = { highlight, highlightMissingTestIds }
