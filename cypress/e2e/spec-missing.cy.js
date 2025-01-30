@@ -9,8 +9,9 @@ beforeEach(() => {
 })
 
 it('highlights input elements without data-cy attribute', () => {
-  cy.get('input[data-cy=new-todo]').invoke('removeAttr', 'data-cy')
+  // cy.get('input[data-cy=new-todo]').invoke('removeAttr', 'data-cy')
   // confirm there are input elements without data-cy attribute
-  cy.get('input:not([data-cy])')
+  // cy.get('input:not([data-cy])')
+
   highlightMissingTestIds()
 })

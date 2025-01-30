@@ -85,6 +85,48 @@ function highlight(...selectors) {
   }
 }
 
-function highlightMissingTestIds() {}
+/**
+ * @param {boolean} failIfFound - if true, the test fails if the selector is found
+ */
+function highlightMissingTestIds(failIfFound = true) {
+  const stylesheetTitle = 'highlight-missing-test-ids'
+  const css = `
+    input:not([data-cy]),button:not([data-cy]),a:not([data-cy]) { outline: 2px solid pink !important; }
+  `
+  addStyles(stylesheetTitle, css)
+  if (failIfFound) {
+    cy.document({ log: false }).then((doc) => {
+      const input = doc.querySelector('input:not([data-cy])')
+      if (input) {
+        console.error('Found input elements without data-cy attribute')
+        console.error(input)
+        console.error(input.outerHTML)
+        throw new Error(
+          'Found input elements without data-cy attribute, see DevTools console for details',
+        )
+      }
+      const button = doc.querySelector('button:not([data-cy])')
+      if (button) {
+        console.error('Found button elements without data-cy attribute')
+        console.error(button)
+        console.error(button.outerHTML)
+        throw new Error(
+          'Found button elements without data-cy attribute, see DevTools console for details',
+        )
+      }
+      const a = doc.querySelector('a:not([data-cy])')
+      if (a) {
+        console.error('Found anchor elements without data-cy attribute')
+        console.error(a)
+        console.error(a.outerHTML)
+        throw new Error(
+          'Found anchor elements without data-cy attribute, see DevTools console for details',
+        )
+      }
+
+      cy.log('**all important elements have data-cy attribute**')
+    })
+  }
+}
 
 module.exports = { highlight, highlightMissingTestIds }
