@@ -81,6 +81,20 @@ highlight({
 })
 ```
 
+### highlightMissingTestIds
+
+Highlights any buttons / input elements / anchor links without `data-cy` attribute. Fails by default if any are found.
+
+```js
+import { highlightMissingTestIds } from 'cypress-highlight'
+// somewhere during the test
+highlightMissingTestIds()
+// disable throwing an error on a found element
+highlightMissingTestIds(false)
+```
+
+![Found input with missing data-cy attribute](./images/missing.png)
+
 ## Read
 
 [Cypress best practices for selecting elements](https://on.cypress.io/best-practices#Selecting-Elements)
