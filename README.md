@@ -1,6 +1,6 @@
 # cypress-highlight
 
-[![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-14.0.1-brightgreen)
+[![ci status][ci image]][ci url] [![renovate-app badge][renovate-badge]][renovate-app] ![cypress version](https://img.shields.io/badge/cypress-15.0.0-brightgreen)
 
 > Highlights all elements on the page with good test selectors by injecting a CSS rule
 
